@@ -35,13 +35,12 @@ public:
      * \param registered device is physical device registered
      * \param callbackHandler is callback that is called when network state changes
      * \param eui64 pointer to MAC address (8 bytes) of the registered RF driver
-     * \param pskd private shared key
      * \return MESH_ERROR_NONE on success.
      * \return MESH_ERROR_PARAM when input parameters are illegal (also in case when RF device is already associated to other interface)
      * \return MESH_ERROR_MEMORY in case of memory error
      * \return MESH_ERROR_UNKNOWN in other error cases
      */
-    mesh_error_t init(int8_t registered_device_id, mesh_network_handler_t callbackHandler, uint8_t *eui64, char *pskd);
+    mesh_error_t init(int8_t registered_device_id, mesh_network_handler_t callbackHandler, uint8_t *eui64);
 
     /**
      * \brief Overriding initialization of the base class.

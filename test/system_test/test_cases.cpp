@@ -70,10 +70,8 @@ void test_mesh_api_connect_disconnect(int8_t rf_device_id, mesh_network_type_t t
     // initialize interface
     if (type == MESH_TYPE_THREAD) {
         uint8_t eui64[8];
-        char *pskd;
         rf_read_mac_address(eui64);
-        pskd = (char *)"Secret password";
-        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_connect_disconnect, eui64, pskd);
+        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_connect_disconnect, eui64);
     } else {
         err = mesh_api->init(rf_device_id, test_callback_connect_disconnect);
     }
@@ -139,11 +137,9 @@ void test_mesh_api_init_thread(int8_t rf_device_id)
 {
     mesh_error_t err;
     uint8_t eui64[8];
-    char *pskd;
 
     TEST_PRINT("\r\nBegin %s\r\n", __func__);
     rf_read_mac_address(eui64);
-    pskd = (char *)"Secret password";
 
     mesh_api = MeshInterfaceFactory::createInterface(MESH_TYPE_THREAD);
 
@@ -155,25 +151,19 @@ void test_mesh_api_init_thread(int8_t rf_device_id)
         }
 
         // No address in eui64
-        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_init, NULL, pskd);
-        if (!TEST_EQ(err, MESH_ERROR_PARAM)) {
-            break;
-        }
-
-        // no PSK
-        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_init, eui64, NULL);
+        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_init, NULL);
         if (!TEST_EQ(err, MESH_ERROR_PARAM)) {
             break;
         }
 
         // bad rf-device_id
-        err = ((MeshThread *)mesh_api)->init(rf_device_id + 1, test_callback_init, eui64, pskd);
+        err = ((MeshThread *)mesh_api)->init(rf_device_id + 1, test_callback_init, eui64);
         if (!TEST_EQ(err, MESH_ERROR_MEMORY)) {
             break;
         }
 
         // successful re-initialization
-        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_init, eui64, pskd);
+        err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_init, eui64);
         if (!TEST_EQ(err, MESH_ERROR_NONE)) {
             break;
         }
@@ -253,10 +243,8 @@ void test_mesh_api_connect(int8_t rf_device_id, mesh_network_type_t type)
         // initialize interface
         if (type == MESH_TYPE_THREAD) {
             uint8_t eui64[8];
-            char *pskd;
             rf_read_mac_address(eui64);
-            pskd = (char *)"Secret password";
-            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_connect, eui64, pskd);
+            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_connect, eui64);
         } else {
             err = mesh_api->init(rf_device_id, test_callback_connect);
         }
@@ -307,10 +295,8 @@ void test_mesh_api_disconnect(int8_t rf_device_id, mesh_network_type_t type)
         // initialize interface
         if (type == MESH_TYPE_THREAD) {
             uint8_t eui64[8];
-            char *pskd;
             rf_read_mac_address(eui64);
-            pskd = (char *)"Secret password";
-            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_disconnect, eui64, pskd);
+            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_disconnect, eui64);
         } else {
             err = mesh_api->init(rf_device_id, test_callback_disconnect);
         }
@@ -360,10 +346,8 @@ void test_mesh_api_delete_connected(int8_t rf_device_id, mesh_network_type_t typ
         // initialize interface
         if (type == MESH_TYPE_THREAD) {
             uint8_t eui64[8];
-            char *pskd;
             rf_read_mac_address(eui64);
-            pskd = (char *)"Secret password";
-            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_delete_connected, eui64, pskd);
+            err = ((MeshThread *)mesh_api)->init(rf_device_id, test_callback_delete_connected, eui64);
         } else {
             err = mesh_api->init(rf_device_id, test_callback_delete_connected);
         }
